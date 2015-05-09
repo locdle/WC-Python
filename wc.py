@@ -22,16 +22,34 @@ def count_bytes(filename):
     return getsize
 
 
+def count_lines(filename):
+    open_file(filename)
+    number_of_lines = len(open(filename).readlines())
+    return number_of_lines
+
+
 def main():
     count_byte = 0
+    count_line = 0
 
+    byte = False
+    line = False
     if len(sys.argv) >= 2:
         if sys.argv[1] == "-c":
+            byte = True
             for filename in sys.argv[2:]:
                 print("%d %s" % (count_bytes(filename), filename))
                 count_byte += count_bytes(filename)
+        elif sys.argv[1] == "-l":
+            line = True
+            for filename in sys.argv[2:]:
+                print("%d %s" % (count_lines(filename), filename))
+                count_line += count_lines(filename)
         if len(sys.argv) > 3:
-            print("%d total" % count_byte)
+            if byte:
+                print("%d total" % count_byte)
+            elif line:
+                print("%d total" % count_line)
     else:
         print("usage wc textfile1 [textfile2 ...]")
 
