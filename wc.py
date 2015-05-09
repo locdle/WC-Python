@@ -49,6 +49,7 @@ def main():
     line = False
     char = False
     word = False
+    option = True
 
     if len(sys.argv) >= 2:
         if sys.argv[1] == "-c":
@@ -71,8 +72,17 @@ def main():
             for filename in sys.argv[2:]:
                 print("%d %s" % (count_words(filename), filename))
                 count_word += count_words(filename)
+        else:
+            option = False
+            for filename in sys.argv[1:]:
+                count_line += count_lines(filename)
+                count_char += count_character(filename)
+                count_word += count_words(filename)
+                print("%d %d %d %s" % (count_lines(filename), count_words(filename), count_character(filename), filename))
+            if len(sys.argv) > 2:
+                print("%d %d %d %s" % (count_line, count_word, count_char, "total"))
 
-        if len(sys.argv) > 3:
+        if len(sys.argv) > 3 and option:
             if byte:
                 print("%d total" % count_byte)
             elif line:
