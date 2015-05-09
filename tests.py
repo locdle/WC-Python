@@ -38,6 +38,20 @@ class TestWC(unittest.TestCase):
         output = subprocess.getoutput("python3 wc.py -l test.txt test1.txt")
         self.assertEqual(output, system_result)
 
+    def test_count_character_in_one_file(self):
+        system_result = subprocess.getoutput("wc -m test.txt").lstrip()
+        output = subprocess.getoutput("python3 wc.py -m test.txt")
+        self.assertEqual(output, system_result)
+
+    def test_another_count_character_in_one_file(self):
+        system_result = subprocess.getoutput("wc -m test1.txt").lstrip()
+        output = subprocess.getoutput("python3 wc.py -m test1.txt")
+        self.assertEqual(output, system_result)
+
+    def test_count_character_in_two_file(self):
+        system_result = re.sub('  +', '', subprocess.getoutput("wc -m test.txt test1.txt"))
+        output = subprocess.getoutput("python3 wc.py -m test.txt test1.txt")
+        self.assertEqual(output, system_result)
 
 if __name__ == '__main__':
     unittest.main()
