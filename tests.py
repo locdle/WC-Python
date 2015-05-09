@@ -84,9 +84,8 @@ class TestWC(unittest.TestCase):
         self.assertEqual(output, system_result)
 
     def test_no_file_exist(self):
-        system_result = subprocess.getoutput("wc text.txt").lstrip()
         output = subprocess.getoutput("python3 wc.py text.txt")
-        self.assertEqual(output, system_result)
+        self.assertEqual(output, "File text.txt not found")
 
 if __name__ == '__main__':
     unittest.main()

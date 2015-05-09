@@ -12,7 +12,7 @@ def open_file(filename):
         text = fin.read()
         fin.close()
     except IOError:
-        print("wc: %s: open: No such file or directory" % filename)
+        print("File %s not found" % filename)
         raise SystemExit
 
 
