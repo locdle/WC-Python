@@ -2,4 +2,4 @@ language: python
 python:
   - "3.3"
 # command to run tests
-script: python tests.py nosetests
+script: python tests.py
