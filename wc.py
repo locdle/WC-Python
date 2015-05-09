@@ -33,15 +33,22 @@ def count_character(filename):
     number_of_character = len(open(filename).read())
     return number_of_character
 
+def count_words(filename):
+    open_file(filename)
+    number_of_words = len(open(filename).read().split(None))
+    return number_of_words
+
 
 def main():
     count_byte = 0
     count_line = 0
     count_char = 0
+    count_word = 0
 
     byte = False
     line = False
     char = False
+    word = False
 
     if len(sys.argv) >= 2:
         if sys.argv[1] == "-c":
@@ -59,6 +66,11 @@ def main():
             for filename in sys.argv[2:]:
                 print("%d %s" % (count_character(filename), filename))
                 count_char += count_character(filename)
+        elif sys.argv[1] == "-w":
+            word = True
+            for filename in sys.argv[2:]:
+                print("%d %s" % (count_words(filename), filename))
+                count_word += count_words(filename)
 
         if len(sys.argv) > 3:
             if byte:
@@ -67,6 +79,8 @@ def main():
                 print("%d total" % count_line)
             elif char:
                 print("%d total" % count_char)
+            elif word:
+                print("%d total" % count_word)
     else:
         print("usage wc textfile1 [textfile2 ...]")
 
