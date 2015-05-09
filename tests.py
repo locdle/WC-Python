@@ -8,6 +8,10 @@ import re
 
 
 class TestWC(unittest.TestCase):
+    def test_count_bytes_no_file_exist(self):
+        output = subprocess.getoutput("python3 wc.py -c text.txt")
+        self.assertEqual(output, "File text.txt not found")
+
     def test_count_bytes_in_one_file(self):
         system_result = subprocess.getoutput("wc -c test.txt").lstrip()
         output = subprocess.getoutput("python3 wc.py -c test.txt")
@@ -22,6 +26,10 @@ class TestWC(unittest.TestCase):
         system_result = re.sub('  +', '', subprocess.getoutput("wc -c test.txt test1.txt"))
         output = subprocess.getoutput("python3 wc.py -c test.txt test1.txt")
         self.assertEqual(output, system_result)
+
+    def test_count_lines_no_file_exist(self):
+        output = subprocess.getoutput("python3 wc.py -l text.txt")
+        self.assertEqual(output, "File text.txt not found")
 
     def test_count_lines_in_one_file(self):
         system_result = subprocess.getoutput("wc -l test.txt").lstrip()
@@ -38,6 +46,10 @@ class TestWC(unittest.TestCase):
         output = subprocess.getoutput("python3 wc.py -l test.txt test1.txt")
         self.assertEqual(output, system_result)
 
+    def test_count_character_no_file_exist(self):
+        output = subprocess.getoutput("python3 wc.py -m text.txt")
+        self.assertEqual(output, "File text.txt not found")
+
     def test_count_character_in_one_file(self):
         system_result = subprocess.getoutput("wc -m test.txt").lstrip()
         output = subprocess.getoutput("python3 wc.py -m test.txt")
@@ -53,6 +65,10 @@ class TestWC(unittest.TestCase):
         output = subprocess.getoutput("python3 wc.py -m test.txt test1.txt")
         self.assertEqual(output, system_result)
 
+    def test_count_words_no_file_exist(self):
+        output = subprocess.getoutput("python3 wc.py -w text.txt")
+        self.assertEqual(output, "File text.txt not found")
+
     def test_count_words_in_one_file(self):
         system_result = subprocess.getoutput("wc -w test.txt").lstrip()
         output = subprocess.getoutput("python3 wc.py -w test.txt")
@@ -67,6 +83,25 @@ class TestWC(unittest.TestCase):
         system_result = re.sub(' +', '', subprocess.getoutput("wc -w test.txt test1.txt"))
         output = re.sub(' +', '', subprocess.getoutput("python3 wc.py -w test.txt test1.txt"))
         self.assertEqual(output, system_result)
+
+    def test_wc_no_option_in_one_file(self):
+        system_result = re.sub(' +', '', subprocess.getoutput("wc test.txt"))
+        output = re.sub(' +', '', subprocess.getoutput("python3 wc.py test.txt"))
+        self.assertEqual(output, system_result)
+
+    def test_another_wc_no_option_in_one_file(self):
+        system_result = re.sub(' +', '', subprocess.getoutput("wc test1.txt"))
+        output = re.sub(' +', '', subprocess.getoutput("python3 wc.py test1.txt"))
+        self.assertEqual(output, system_result)
+
+    def test_wc_no_option_in_two_file(self):
+        system_result = re.sub(' +', '', subprocess.getoutput("wc test.txt test1.txt"))
+        output = re.sub(' +', '', subprocess.getoutput("python3 wc.py test.txt test1.txt"))
+        self.assertEqual(output, system_result)
+
+    def test_no_file_exist(self):
+        output = subprocess.getoutput("python3 wc.py text.txt")
+        self.assertEqual(output, "File text.txt not found")
 
 if __name__ == '__main__':
     unittest.main()
