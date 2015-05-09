@@ -64,8 +64,8 @@ class TestWC(unittest.TestCase):
         self.assertEqual(output, system_result)
 
     def test_count_words_in_two_file(self):
-        system_result = re.sub('  +', '', subprocess.getoutput("wc -w test.txt test1.txt"))
-        output = subprocess.getoutput("python3 wc.py -w test.txt test1.txt")
+        system_result = re.sub(' +', '', subprocess.getoutput("wc -w test.txt test1.txt"))
+        output = re.sub(' +', '', subprocess.getoutput("python3 wc.py -w test.txt test1.txt"))
         self.assertEqual(output, system_result)
 
 if __name__ == '__main__':
